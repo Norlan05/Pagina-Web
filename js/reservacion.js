@@ -118,7 +118,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // **Llamada a la API**
   async function get_parameter(data) {
-    const url = "http://Clinica.somee.com/api/Insert";
+    const url = "https://Clinica.somee.com/api/Insert";
 
     try {
       const response = await fetch(url, {
