@@ -1,6 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("reservation-form");
+  const firstName = document.getElementById("first-name");
+  const lastName = document.getElementById("last-name");
   const dateInput = document.getElementById("date");
+  const cedula = document.getElementById("cedula");
   const timeSelect = document.getElementById("time");
   const phoneInput = document.getElementById("phone");
   const phoneErrorDiv = document.getElementById("phone-error");
@@ -31,6 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
+  // Generar las opciones de hora al cargar la página
   generateTimeOptions();
 
   // **Función para actualizar las reservas**
@@ -42,6 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
   form.addEventListener("submit", (event) => {
     event.preventDefault();
 
+    // Obtener los datos del formulario
     const date = dateInput.value;
     const time = timeSelect.value;
     const phone = phoneInput.value;
@@ -96,18 +101,19 @@ document.addEventListener("DOMContentLoaded", () => {
     reservations[reservationKey] = true;
     localStorage.setItem("reservations", JSON.stringify(reservations));
 
-    // Datos a enviar a la API
-    const data_info = {
-      nombre: document.getElementById("first-name").value,
-      apellido: document.getElementById("last-name").value,
+    // Construir el objeto con los datos para enviar al servidor
+    const reservaData = {
+      nombre: firstName.value,
+      apellido: lastName.value,
       correo_electronico: email,
       numero_telefono: phone,
+      Cedula: cedula.value,
       fecha: date,
       hora: time,
     };
 
     // Llamar a la API
-    get_parameter(data_info);
+    get_parameter(reservaData);
 
     showAlert("¡Reserva realizada con éxito!", "success");
     form.reset();
@@ -150,6 +156,7 @@ document.addEventListener("DOMContentLoaded", () => {
       confirmButtonText: "Aceptar",
     });
   }
+
   // **Limpiar reservas**
   function clearReservations() {
     localStorage.removeItem("reservations");

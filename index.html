@@ -927,6 +927,7 @@
                       required />
                   </div>
                 </div>
+
                 <!-- Campo para el correo electrónico -->
                 <div class="col-lg-6 col-md-6 col-12">
                   <div class="form-group">
@@ -959,6 +960,26 @@
                     <span id="phone-error" class="error-message"></span>
                   </div>
                 </div>
+                <!-- Campo para la cédula -->
+                <div class="col-lg-6 col-md-6 col-12">
+                  <div class="form-group">
+                    <label for="cedula">Cédula:</label>
+                    <input
+                      type="text"
+                      id="cedula"
+                      name="cedula"
+                      placeholder="Cédula"
+                      required
+                      pattern="^\d{3}-\d{6}-\d{4}[A-Za-z]$" />
+                  </div>
+                </div>
+                <!-- Campo para la hora -->
+                <div class="col-lg-6 col-md-6 col-12">
+                  <div class="form-group">
+                    <label for="time">Selecciona una hora:</label>
+                    <select id="time" name="time" required></select>
+                  </div>
+                </div>
                 <!-- Campo para la fecha -->
                 <div class="col-lg-6 col-md-6 col-12">
                   <div class="form-group">
@@ -971,13 +992,7 @@
                       required />
                   </div>
                 </div>
-                <!-- Campo para la hora -->
-                <div class="col-lg-6 col-md-6 col-12">
-                  <div class="form-group">
-                    <label for="time">Selecciona una hora:</label>
-                    <select id="time" name="time" required></select>
-                  </div>
-                </div>
+
                 <!-- Mensaje de error -->
                 <div id="message" class="message"></div>
               </div>
