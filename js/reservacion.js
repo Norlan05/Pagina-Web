@@ -38,10 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
   generateTimeOptions();
 
   // **Función para actualizar las reservas**
-  function updateReservations() {
-    let reservations = JSON.parse(localStorage.getItem("reservations")) || {};
-    return reservations;
-  }
+  // (Eliminamos esta función ya que no se usa el localStorage)
 
   form.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -51,6 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const time = timeSelect.value;
     const phone = phoneInput.value;
     const email = emailInput.value;
+    const cedulaValue = cedula.value;
 
     let isValid = true;
 
@@ -75,6 +73,15 @@ document.addEventListener("DOMContentLoaded", () => {
       phoneErrorDiv.textContent = ""; // Limpia el mensaje de error si es válido
     }
 
+    // Validación de correo electrónico
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
+    if (!emailRegex.test(email)) {
+      emailErrorDiv.textContent = "Por favor ingresa un correo válido.";
+      isValid = false;
+    } else {
+      emailErrorDiv.textContent = ""; // Limpia el mensaje de error si es válido
+    }
+
     if (!isValid) {
       Swal.fire({
         icon: "error",
@@ -84,30 +91,13 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    // Crear clave de reserva
-    const reservationKey = `${date}T${time}`;
-
-    // **Verificar si ya existe la reserva en el localStorage**
-    const reservations = updateReservations(); // Actualizar reservas antes de verificar
-    if (reservations[reservationKey]) {
-      showAlert(
-        "Lo sentimos, ya existe una reserva para esta hora. Elige otra.",
-        "error"
-      );
-      return;
-    }
-
-    // Guardar la reserva localmente
-    reservations[reservationKey] = true;
-    localStorage.setItem("reservations", JSON.stringify(reservations));
-
     // Construir el objeto con los datos para enviar al servidor
     const reservaData = {
       nombre: firstName.value,
       apellido: lastName.value,
       correo_electronico: email,
       numero_telefono: phone,
-      Cedula: cedula.value,
+      Cedula: cedulaValue,
       fecha: date,
       hora: time,
     };
@@ -124,11 +114,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // **Llamada a la API**
   async function get_parameter(data) {
-    const url = "https://Clinica.somee.com/api/Insert";
+    const url = "https://Clinica.somee.com/api/Insert"; // Cambiar por la URL correcta de tu API
 
     try {
       const response = await fetch(url, {
         method: "POST",
+
         headers: { "Content-type": "application/json" },
         body: JSON.stringify(data),
       });
@@ -155,10 +146,5 @@ document.addEventListener("DOMContentLoaded", () => {
       text: message,
       confirmButtonText: "Aceptar",
     });
-  }
-
-  // **Limpiar reservas**
-  function clearReservations() {
-    localStorage.removeItem("reservations");
   }
 });
