@@ -273,24 +273,6 @@
       horizontalOffset: 0,
       verticalOffset: 0,
     });
-
-    /*====================
-			Google Maps JS
-		======================*/
-    var map = new GMaps({
-      el: "#map",
-      lat: 23.011245,
-      lng: 90.88478,
-      scrollwheel: false,
-    });
-    map.addMarker({
-      lat: 23.011245,
-      lng: 90.88478,
-      title: "Marker with InfoWindow",
-      infoWindow: {
-        content: "<p>welcome to Medipro</p>",
-      },
-    });
   });
 
   /*====================
