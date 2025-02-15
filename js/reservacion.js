@@ -180,8 +180,12 @@ document.addEventListener("DOMContentLoaded", () => {
     // Llamar a la API para enviar los datos
     sendReservation(reservaData).then((result) => {
       if (result) {
+        // Limpiar el formulario
         form.reset();
-        timeSelect.selectedIndex = 0;
+
+        // Limpiar la selección de la hora
+        let timeSelect = document.getElementById("time");
+        timeSelect.value = 0; // Esto restablecerá la selección de hora a la opción vacía
       }
     });
   });

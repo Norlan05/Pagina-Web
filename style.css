@@ -1871,7 +1871,7 @@ s
 =========================*/
 .blog {
   background: #fff;
-  border-bottom: 1px solid #15cce4; /* Línea inferior ligera */
+  border-bottom: 5px solid #15cce4; /* Línea inferior ligera */
 }
 .blog .blog-title {
   text-align: center;
@@ -1965,7 +1965,7 @@ s
 /* Estilo general para la sección de citas */
 .appointment {
   background: #fff; /* Color de fondo blanco */
-  padding-top: 100px; /* Espaciado superior de 100px */
+  padding-top: 10px; /* Espaciado superior de 100px */
 }
 
 /* Estilo específico para páginas individuales de citas */
@@ -2006,7 +2006,7 @@ s
 .appointment .form input {
   width: 100%; /* Ancho completo del campo de entrada */
   height: 50px; /* Altura de 50px */
-  border: 1px solid #eee; /* Borde gris claro */
+  border: 1px solid #0e0d0d; /* Borde gris claro */
   text-transform: capitalize; /* Capitaliza el texto ingresado */
   padding: 0px 18px; /* Espaciado interno */
   color: #555; /* Color del texto en el campo de entrada */
@@ -2031,7 +2031,7 @@ s
   width: 100%; /* Ancho completo */
   height: 50px; /* Altura del selector */
   line-height: 50px; /* Alineación vertical del texto */
-  border: 1px solid #eee; /* Borde gris claro */
+  border: 1px solid #080808; /* Borde gris claro */
   text-transform: capitalize; /* Capitaliza el texto del selector */
   padding: 0px 18px; /* Espaciado interno */
   color: #999; /* Color del texto gris */
@@ -2051,10 +2051,13 @@ s
   border-radius: 4px; /* Bordes redondeados para la lista */
 }
 
-/* Estilo para los elementos de la lista */
-.appointment .form-group .list li {
-  color: #757575; /* Color de texto gris */
-  border-radius: 0; /* Sin bordes redondeados */
+/* Limita la altura de la lista y agrega scroll si es necesario */
+.appointment .form-group .list {
+  border-radius: 4px; /* Bordes redondeados para la lista */
+  max-height: 200px; /* Ajusta según sea necesario */
+  overflow-y: auto; /* Agrega un scroll si hay muchas opciones */
+  position: absolute; /* Evita que empuje otros elementos */
+  z-index: 1000; /* Asegura que el menú se muestre sobre otros elementos */
 }
 
 /* Estilo para el elemento seleccionado en la lista */
