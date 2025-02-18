@@ -2054,7 +2054,7 @@ s
 /* Limita la altura de la lista y agrega scroll si es necesario */
 .appointment .form-group .list {
   border-radius: 4px; /* Bordes redondeados para la lista */
-  max-height: 200px; /* Ajusta según sea necesario */
+  max-height: 170px; /* Ajusta según sea necesario */
   overflow-y: auto; /* Agrega un scroll si hay muchas opciones */
   position: absolute; /* Evita que empuje otros elementos */
   z-index: 1000; /* Asegura que el menú se muestre sobre otros elementos */

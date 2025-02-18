@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Generar las opciones de hora
   const generateTimeOptions = () => {
     const start = 8; // Hora de inicio: 8:00 AM
-    const end = 19; // Hora de fin: 7:00 PM
+    const end = 18; // Hora de fin: 7:00 PM
     timeSelect.innerHTML =
       '<option value="" disabled selected>Selecciona la Hora</option>';
     for (let hour = start; hour < end; hour++) {
