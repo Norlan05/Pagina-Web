@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Registrar Citas</title>
+    <!-- Custom fonts for this template-->
+    <link
+      href="vendor/fontawesome-free/css/all.min.css"
+      rel="stylesheet"
+      type="text/css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+      rel="stylesheet" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+      rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link href="css/sb-admin-2.min.css" rel="stylesheet" />
+  </head>
+  <body id="page-top">
+    <!-- Contenedor de la página -->
+    <div id="wrapper">
+      <!-- Barra lateral -->
+      <ul
+        class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
+        id="accordionSidebar">
+        <!-- Marca de la barra lateral -->
+        <a
+          class="sidebar-brand d-flex align-items-center justify-content-center">
+          <div class="sidebar-brand-icon rotate-n-15">
+            <i class="fas fa-star"></i>
+          </div>
+          <div class="sidebar-brand-text mx-3">Ginecologia</div>
+        </a>
+
+        <!-- Separador -->
+        <hr class="sidebar-divider my-0" />
+
+        <!-- Divider -->
+        <hr class="sidebar-divider" />
+
+        <!-- Heading -->
+        <div class="sidebar-heading">Registros</div>
+
+        <!-- Eliminar collapse y solo mostrar los enlaces -->
+        <li class="nav-item">
+          <a class="nav-link" href="registrocitas.html">
+            <i class="fas fa-fw fa-calendar"></i>
+            <span>Registrar Nueva Cita</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="Historial-Paciente.html">
+            <i class="fas fa-user-plus"></i>
+            <span>Historial de sus Consultas</span>
+          </a>
+        </li>
+
+        <!-- Divider -->
+      </ul>
+      <!-- End of Sidebar -->
+
+      <!-- Content Wrapper -->
+      <div id="content-wrapper" class="d-flex flex-column">
+        <!-- Main Content -->
+        <div id="content">
+          <!-- Topbar -->
+          <nav
+            class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+            <form class="form-inline">
+              <button
+                id="sidebarToggleTop"
+                class="btn btn-link d-md-none rounded-circle mr-3">
+                <i class="fa fa-bars"></i>
+              </button>
+            </form>
+
+            <!-- Topbar Navbar -->
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item dropdown no-arrow">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  id="userDropdown"
+                  role="button"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false">
+                  <span class="mr-2 d-none d-lg-inline text-gray-600 small"
+                    >Dr Toruño</span
+                  >
+                  <img
+                    class="img-profile rounded-circle"
+                    src="img/undraw_profile.svg" />
+                </a>
+                <div
+                  class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                  aria-labelledby="userDropdown">
+                  <div class="dropdown-divider"></div>
+                  <a
+                    class="dropdown-item"
+                    href="#"
+                    data-toggle="modal"
+                    data-target="#logoutModal">
+                    <i
+                      class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                    Logout
+                  </a>
+                </div>
+              </li>
+            </ul>
+          </nav>
+
+          <!-- Begin Page Content -->
+          <div class="container-fluid">
+            <!-- Page Heading -->
+            <!-- Formulario de Reservas -->
+            <div class="card shadow mb-4">
+              <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">
+                  Reservar una Cita
+                </h6>
+              </div>
+              <div class="card-body">
+                <form id="reservation-form" class="form" action="#">
+                  <div class="row">
+                    <!-- Campo para el nombre -->
+                    <div class="col-lg-6 col-md-6 col-12">
+                      <div class="form-group">
+                        <label for="first-name">Nombre:</label>
+                        <input
+                          type="text"
+                          id="first-name"
+                          name="first-name"
+                          placeholder="Nombre"
+                          required
+                          class="form-control" />
+                      </div>
+                    </div>
+                    <!-- Campo para el apellido -->
+                    <div class="col-lg-6 col-md-6 col-12">
+                      <div class="form-group">
+                        <label for="last-name">Apellido:</label>
+                        <input
+                          type="text"
+                          id="last-name"
+                          name="last-name"
+                          placeholder="Apellido"
+                          required
+                          class="form-control" />
+                      </div>
+                    </div>
+                    <!-- Campo para el correo electrónico -->
+                    <div class="col-lg-6 col-md-6 col-12">
+                      <div class="form-group">
+                        <label for="email">Correo Electrónico:</label>
+                        <input
+                          type="email"
+                          id="email"
+                          name="email"
+                          placeholder="Correo Electrónico"
+                          required
+                          class="form-control"
+                          pattern="^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$"
+                          title="Ingresa un correo electrónico válido (ej: usuario@dominio.com)" />
+                        <span id="email-error" class="error-message"></span>
+                      </div>
+                    </div>
+                    <!-- Campo para la cédula -->
+                    <div class="col-lg-6 col-md-6 col-12">
+                      <div class="form-group">
+                        <label for="cedula">Cédula:</label>
+                        <input
+                          type="text"
+                          id="cedula"
+                          name="cedula"
+                          placeholder="Cédula"
+                          required
+                          class="form-control" />
+                      </div>
+                    </div>
+
+                    <!-- Campo para el número de teléfono -->
+                    <div class="col-lg-6 col-md-6 col-12">
+                      <div class="form-group">
+                        <label for="phone">Número de Teléfono:</label>
+                        <input
+                          type="tel"
+                          id="phone"
+                          name="phone"
+                          placeholder="Número de Teléfono"
+                          required
+                          class="form-control"
+                          pattern="^(\+505\d{8}|\d{8})$"
+                          title="El número debe tener 8 dígitos o incluir el prefijo +505." />
+                        <span id="phone-error" class="error-message"></span>
+                      </div>
+                    </div>
+                    <!-- Campo para la fecha -->
+                    <div class="col-lg-6 col-md-6 col-12">
+                      <div class="form-group">
+                        <label for="date">Selecciona una fecha:</label>
+                        <input
+                          type="date"
+                          id="date"
+                          name="date"
+                          placeholder="Fecha"
+                          required
+                          class="form-control" />
+                      </div>
+                    </div>
+                    <!-- Campo para la hora -->
+                    <div class="col-lg-6 col-md-6 col-12">
+                      <div class="form-group">
+                        <label for="time">Selecciona una hora:</label>
+                        <select
+                          id="time"
+                          name="time"
+                          required
+                          class="form-control"></select>
+                      </div>
+                    </div>
+
+                    <!-- Mensaje de error -->
+                    <div id="message" class="message"></div>
+                  </div>
+                  <!-- Botón de envío -->
+                  <div class="row">
+                    <div class="col-lg-4 col-md-4 col-12">
+                      <button type="submit" class="btn btn-primary">
+                        Reservar Cita
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <!-- /.container-fluid -->
+        </div>
+        <!-- End of Main Content -->
+      </div>
+      <!-- End of Content Wrapper -->
+    </div>
+
+    <!-- Modal de cierre de sesión -->
+    <div
+      class="modal fade"
+      id="logoutModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">
+              ¿Listo para salir?
+            </h5>
+            <button
+              class="close"
+              type="button"
+              data-dismiss="modal"
+              aria-label="Cerrar">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Selecciona "Cerrar sesión" a continuación si estás listo para
+            terminar tu sesión actual.
+          </div>
+          <div class="modal-footer">
+            <button
+              class="btn btn-secondary"
+              type="button"
+              data-dismiss="modal">
+              Cancelar
+            </button>
+            <a class="btn btn-primary" href="login.html">Cerrar sesión</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- Incluir el script mostrarReserva.js -->
+    <script src="js/citas.js"></script>
+  </body>
+</html>

@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <title>Historial De Pacientes</title>
+
+    <!-- Custom fonts for this template-->
+    <link
+      href="vendor/fontawesome-free/css/all.min.css"
+      rel="stylesheet"
+      type="text/css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+      rel="stylesheet" />
+
+    <!-- Custom styles for this template-->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet" />
+  </head>
+
+  <body id="page-top">
+    <!-- Contenedor de la página -->
+    <div id="wrapper">
+      <!-- Barra lateral -->
+      <ul
+        class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
+        id="accordionSidebar">
+        <!-- Marca de la barra lateral -->
+        <a
+          class="sidebar-brand d-flex align-items-center justify-content-center">
+          <div class="sidebar-brand-icon rotate-n-15">
+            <i class="fas fa-star"></i>
+          </div>
+          <div class="sidebar-brand-text mx-3">Ginecologia</div>
+        </a>
+
+        <!-- Separador -->
+        <hr class="sidebar-divider my-0" />
+
+        <!-- Divider -->
+        <hr class="sidebar-divider" />
+
+        <!-- Heading -->
+        <div class="sidebar-heading">Registros</div>
+
+        <!-- Nav Item - Registrar Nueva Cita -->
+        <li class="nav-item">
+          <a class="nav-link" href="registrocitas.html">
+            <span>Registrar Nueva Cita</span>
+          </a>
+        </li>
+
+        <!-- Nav Item - Registrar Pacientes -->
+        <li class="nav-item">
+          <a class="nav-link" href="Historial-Paciente.html">
+            <span>Historial de sus Consultas</span>
+          </a>
+        </li>
+
+        <!-- Sidebar Toggler (Sidebar) -->
+      </ul>
+      <!-- End of Sidebar -->
+
+      <!-- Content Wrapper -->
+      <div id="content-wrapper" class="d-flex flex-column">
+        <!-- Main Content -->
+        <div id="content">
+          <!-- Topbar -->
+          <nav
+            class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+            <!-- Sidebar Toggle (Topbar) -->
+            <button
+              id="sidebarToggleTop"
+              class="btn btn-link d-md-none rounded-circle mr-3">
+              <i class="fa fa-bars"></i>
+            </button>
+
+            <!-- Topbar Navbar -->
+            <ul class="navbar-nav ml-auto">
+              <!-- Elemento de navegación - Información del usuario -->
+              <li class="nav-item dropdown no-arrow">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  id="userDropdown"
+                  role="button"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false">
+                  <span class="mr-2 d-none d-lg-inline text-gray-600 small"
+                    >Dr Toruño</span
+                  >
+                  <img
+                    class="img-profile rounded-circle"
+                    src="img/undraw_profile.svg" />
+                </a>
+                <!-- Dropdown - User Information -->
+                <div
+                  class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                  aria-labelledby="userDropdown">
+                  <div class="dropdown-divider"></div>
+                  <a
+                    class="dropdown-item"
+                    href="#"
+                    data-toggle="modal"
+                    data-target="#logoutModal">
+                    <i
+                      class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                    Logout
+                  </a>
+                </div>
+              </li>
+            </ul>
+          </nav>
+          <!-- End of Topbar -->
+
+          <!-- Comienzo del contenido de la página -->
+          <div class="container-fluid">
+            <div class="row d-flex align-items-stretch">
+              <!-- Formulario para buscar por cédula (a la izquierda) -->
+              <div class="col-md-6 d-flex">
+                <div class="card shadow mb-4 flex-fill">
+                  <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">
+                      Buscar Paciente
+                    </h6>
+                  </div>
+                  <div class="card-body">
+                    <!-- Formulario de búsqueda -->
+                    <form id="buscarPacienteForm">
+                      <div class="form-group">
+                        <label for="cedulaInput">Cédula del Paciente</label>
+                        <input
+                          type="text"
+                          id="cedulaInput"
+                          class="form-control"
+                          placeholder="Ingrese la cédula"
+                          required />
+                      </div>
+                      <!-- Botón para buscar el campo de búsqueda -->
+                      <button type="submit" class="btn btn-primary">
+                        Buscar
+                      </button>
+                      <!-- Botón para limpiar el campo de búsqueda -->
+                      <button
+                        type="button"
+                        id="clear-search-btn"
+                        class="btn btn-danger">
+                        Limpiar
+                      </button>
+                      <!-- Botón para exportar a PDF -->
+                      <button
+                        type="button"
+                        id="export-pdf-btn"
+                        class="btn btn-success">
+                        Exportar a PDF
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <!-- Fin de la columna del formulario de búsqueda -->
+
+              <!-- Columna para los datos del paciente -->
+              <div class="col-md-6 d-flex">
+                <div class="card shadow mb-4 flex-fill">
+                  <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">
+                      Datos del Paciente
+                    </h6>
+                  </div>
+                  <div class="card-body">
+                    <p><strong>Nombre:</strong> <span id="nombre"></span></p>
+                    <p><strong>Cédula:</strong> <span id="cedula"></span></p>
+                    <p>
+                      <strong>Dirección:</strong> <span id="direccion"></span>
+                    </p>
+                    <p>
+                      <strong>Fecha de Nacimiento:</strong>
+                      <span id="fechaNacimiento"></span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <!-- Fin de la columna de datos del paciente -->
+            </div>
+            <!-- /.row -->
+
+            <!-- Historial de Consultas -->
+            <div class="row mt-4">
+              <div class="col-12">
+                <div class="card shadow">
+                  <div class="card-header bg-secondary text-white">
+                    Historial de Consultas
+                  </div>
+                  <div class="card-body">
+                    <table class="table table-striped table-bordered">
+                      <thead class="thead-dark">
+                        <tr>
+                          <th>Motivo de Consulta</th>
+                          <th>Diagnóstico</th>
+                          <th>Tratamiento</th>
+                          <th>Fecha de Consulta</th>
+                        </tr>
+                      </thead>
+                      <tbody id="consultas">
+                        <!-- Las filas se agregarán dinámicamente -->
+                        <tr>
+                          <td colspan="4" class="text-center">
+                            Cargando datos...
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /.row -->
+          </div>
+          <!-- /.container-fluid -->
+
+          <!-- End of Main Content -->
+
+          <!-- /.container-fluid -->
+        </div>
+        <!-- Fin del contenido principal -->
+      </div>
+      <!-- Fin del contenedor de contenido -->
+    </div>
+    <!-- Fin del envoltorio de la página -->
+
+    <!-- Modal de cierre de sesión -->
+    <div
+      class="modal fade"
+      id="logoutModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">
+              ¿Listo para salir?
+            </h5>
+            <button
+              class="close"
+              type="button"
+              data-dismiss="modal"
+              aria-label="Cerrar">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Selecciona "Cerrar sesión" a continuación si estás listo para
+            terminar tu sesión actual.
+          </div>
+          <div class="modal-footer">
+            <button
+              class="btn btn-secondary"
+              type="button"
+              data-dismiss="modal">
+              Cancelar
+            </button>
+            <a class="btn btn-primary" href="login.html">Cerrar sesión</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- JavaScript básico de Bootstrap -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- JavaScript de plugins principales -->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Scripts personalizados para todas las páginas -->
+    <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- Plugins a nivel de página -->
+    <script src="vendor/chart.js/Chart.min.js"></script>
+    <!-- Incluir jsPDF desde CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <!-- Scripts personalizados a nivel de página -->
+
+    <script src="js/historial.js"></script>
+  </body>
+</html>
