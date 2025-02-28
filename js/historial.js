@@ -3,11 +3,24 @@ document
   .addEventListener("submit", function (e) {
     e.preventDefault(); // Prevenir el envío del formulario
 
+    // Obtener el correo guardado en sessionStorage
+    const correoGuardado = sessionStorage.getItem("correoUsuario");
+
     const correo = document.getElementById("correoInput").value.trim(); // Usar el campo de correo
 
     if (!correo) {
       alert("Por favor ingrese su correo.");
       return;
+    }
+
+    // Verificar si el correo ingresado coincide con el correo guardado
+    if (correo !== correoGuardado) {
+      Swal.fire({
+        icon: "error",
+        title: "Acceso no autorizado",
+        text: "No puedes ver el historial de otros usuarios.",
+      });
+      return; // No continuar con la búsqueda
     }
 
     const url =
@@ -125,6 +138,7 @@ document
 
     const nombre = document.getElementById("nombre").innerText;
     const correo = document.getElementById("correo").innerText; // Cambié "cedula" por "correo"
+    const cedula = document.getElementById("cedula").innerText;
     const direccion = document.getElementById("direccion").innerText;
     const fechaNacimiento =
       document.getElementById("fechaNacimiento").innerText;
@@ -137,6 +151,8 @@ document
     doc.text(`Nombre: ${nombre}`, leftMargin, yOffset);
     yOffset += 10;
     doc.text(`Correo: ${correo}`, leftMargin, yOffset); // Cambié "Cédula" por "Correo"
+    yOffset += 10;
+    doc.text(`Cédula: ${cedula}`, leftMargin, yOffset);
     yOffset += 10;
     doc.text(`Dirección: ${direccion}`, leftMargin, yOffset);
     yOffset += 10;
