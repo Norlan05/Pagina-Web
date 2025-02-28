@@ -3,26 +3,19 @@ document
   .addEventListener("submit", function (e) {
     e.preventDefault(); // Prevenir el envío del formulario
 
-    // Obtener el valor del correo
-    const correo = document.getElementById("correoInput").value.trim();
+    const correo = document.getElementById("correoInput").value.trim(); // Usar el campo de correo
 
     if (!correo) {
-      alert("Por favor ingrese un correo electrónico.");
+      alert("Por favor ingrese su correo.");
       return;
     }
 
-    // URL de la API de búsqueda por correo
     const url =
-      "https://Clinica.somee.com/api/BuscarHistorialUsuario/buscar?correo=" +
-      encodeURIComponent(correo); // Asegurarse de codificar el correo para la URL
+      "https://clinica.somee.com/api/BuscarHistorialUsuario/buscar?correo=" +
+      correo; // Nueva URL
 
     // Realizar la solicitud a la API
-    fetch(url, {
-      method: "GET",
-      headers: {
-        Accept: "*/*",
-      },
-    })
+    fetch(url)
       .then((response) => {
         console.log("Respuesta de la API:", response); // Verificar el objeto de respuesta
         if (!response.ok) {
@@ -34,7 +27,7 @@ document
         console.log("Datos del paciente:", data); // Verificar los datos devueltos
 
         // Verificar si los datos del paciente están completos
-        if (!data || !data.nombre || !data.correo) {
+        if (!data || !data.nombre || !data.cedula) {
           throw new Error(
             "No se encontraron datos válidos para este paciente."
           );
@@ -42,6 +35,8 @@ document
 
         // Mostrar los datos del paciente en los elementos HTML
         document.getElementById("nombre").innerText = data.nombre || "N/A";
+        document.getElementById("correo").innerText =
+          data.correo_electronico || "N/A";
         document.getElementById("cedula").innerText = data.cedula || "N/A";
         document.getElementById("direccion").innerText =
           data.direccion || "N/A";
@@ -59,7 +54,7 @@ document
             row.innerHTML = `
               <td>${consulta.motivo_Consulta}</td>
               <td>${consulta.diagnostico}</td>
-              <td>${consulta.observaciones}</td>
+              <td>${consulta.observaciones}</td> <!-- Cambié "observaciones" a "tratamiento" -->
               <td>${consulta.fecha_Consulta}</td>
             `;
             consultasTableBody.appendChild(row);
@@ -86,7 +81,7 @@ document
 
     // Limpiar los datos del paciente
     document.getElementById("nombre").innerText = "";
-    document.getElementById("cedula").innerText = "";
+    document.getElementById("correo").innerText = "";
     document.getElementById("direccion").innerText = "";
     document.getElementById("fechaNacimiento").innerText = "";
 
@@ -99,7 +94,6 @@ document
     `;
   });
 
-// Código para exportar el PDF sigue igual
 document
   .getElementById("export-pdf-btn")
   .addEventListener("click", function () {
@@ -130,7 +124,7 @@ document
     addCenteredText("Historial del Paciente", titleFontSize, topMargin);
 
     const nombre = document.getElementById("nombre").innerText;
-    const cedula = document.getElementById("cedula").innerText;
+    const correo = document.getElementById("correo").innerText; // Cambié "cedula" por "correo"
     const direccion = document.getElementById("direccion").innerText;
     const fechaNacimiento =
       document.getElementById("fechaNacimiento").innerText;
@@ -142,7 +136,7 @@ document
     doc.setFont("helvetica", "bold");
     doc.text(`Nombre: ${nombre}`, leftMargin, yOffset);
     yOffset += 10;
-    doc.text(`Cédula: ${cedula}`, leftMargin, yOffset);
+    doc.text(`Correo: ${correo}`, leftMargin, yOffset); // Cambié "Cédula" por "Correo"
     yOffset += 10;
     doc.text(`Dirección: ${direccion}`, leftMargin, yOffset);
     yOffset += 10;
@@ -158,7 +152,7 @@ document
     const headers = [
       "Motivo de la \nConsulta",
       "Diagnóstico",
-      "Observaciones",
+      "Tratamiento", // Cambié "Observaciones" por "Tratamiento"
       "Fecha",
     ];
     const columnWidths = [50, 40, 60, 40];
@@ -223,4 +217,3 @@ document
 
     doc.save("Historial_paciente.pdf");
   });
-s;
