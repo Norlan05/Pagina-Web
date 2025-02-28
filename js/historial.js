@@ -3,18 +3,26 @@ document
   .addEventListener("submit", function (e) {
     e.preventDefault(); // Prevenir el envío del formulario
 
-    const cedula = document.getElementById("cedulaInput").value.trim();
+    // Obtener el valor del correo
+    const correo = document.getElementById("correoInput").value.trim();
 
-    if (!cedula) {
-      alert("Por favor ingrese una cédula.");
+    if (!correo) {
+      alert("Por favor ingrese un correo electrónico.");
       return;
     }
 
+    // URL de la API de búsqueda por correo
     const url =
-      "https://Clinica.somee.com/api/BuscarPaciente/buscar?cedula=" + cedula;
+      "https://Clinica.somee.com/api/BuscarHistorialUsuario/buscar?correo=" +
+      encodeURIComponent(correo); // Asegurarse de codificar el correo para la URL
 
     // Realizar la solicitud a la API
-    fetch(url)
+    fetch(url, {
+      method: "GET",
+      headers: {
+        Accept: "*/*",
+      },
+    })
       .then((response) => {
         console.log("Respuesta de la API:", response); // Verificar el objeto de respuesta
         if (!response.ok) {
@@ -26,7 +34,7 @@ document
         console.log("Datos del paciente:", data); // Verificar los datos devueltos
 
         // Verificar si los datos del paciente están completos
-        if (!data || !data.nombre || !data.cedula) {
+        if (!data || !data.nombre || !data.correo) {
           throw new Error(
             "No se encontraron datos válidos para este paciente."
           );
@@ -68,12 +76,13 @@ document
         alert("Ocurrió un error al buscar el paciente. Intente nuevamente.");
       });
   });
+
 // Evento para el botón "Limpiar"
 document
   .getElementById("clear-search-btn")
   .addEventListener("click", function () {
     // Limpiar el campo de búsqueda
-    document.getElementById("cedulaInput").value = "";
+    document.getElementById("correoInput").value = "";
 
     // Limpiar los datos del paciente
     document.getElementById("nombre").innerText = "";
@@ -90,6 +99,7 @@ document
     `;
   });
 
+// Código para exportar el PDF sigue igual
 document
   .getElementById("export-pdf-btn")
   .addEventListener("click", function () {
@@ -213,3 +223,4 @@ document
 
     doc.save("Historial_paciente.pdf");
   });
+s;

@@ -25,13 +25,10 @@
   </head>
 
   <body id="page-top">
-    <!-- Contenedor de la página -->
     <div id="wrapper">
-      <!-- Barra lateral -->
       <ul
         class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
         id="accordionSidebar">
-        <!-- Marca de la barra lateral -->
         <a
           class="sidebar-brand d-flex align-items-center justify-content-center">
           <div class="sidebar-brand-icon rotate-n-15">
@@ -40,50 +37,35 @@
           <div class="sidebar-brand-text mx-3">Ginecologia</div>
         </a>
 
-        <!-- Separador -->
         <hr class="sidebar-divider my-0" />
-
-        <!-- Divider -->
         <hr class="sidebar-divider" />
 
-        <!-- Heading -->
         <div class="sidebar-heading">Registros</div>
 
-        <!-- Nav Item - Registrar Nueva Cita -->
         <li class="nav-item">
           <a class="nav-link" href="registrocitas.html">
             <span>Registrar Nueva Cita</span>
           </a>
         </li>
 
-        <!-- Nav Item - Registrar Pacientes -->
         <li class="nav-item">
           <a class="nav-link" href="Historial-Paciente.html">
             <span>Historial de sus Consultas</span>
           </a>
         </li>
-
-        <!-- Sidebar Toggler (Sidebar) -->
       </ul>
-      <!-- End of Sidebar -->
 
-      <!-- Content Wrapper -->
       <div id="content-wrapper" class="d-flex flex-column">
-        <!-- Main Content -->
         <div id="content">
-          <!-- Topbar -->
           <nav
             class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-            <!-- Sidebar Toggle (Topbar) -->
             <button
               id="sidebarToggleTop"
               class="btn btn-link d-md-none rounded-circle mr-3">
               <i class="fa fa-bars"></i>
             </button>
 
-            <!-- Topbar Navbar -->
             <ul class="navbar-nav ml-auto">
-              <!-- Elemento de navegación - Información del usuario -->
               <li class="nav-item dropdown no-arrow">
                 <a
                   class="nav-link dropdown-toggle"
@@ -100,7 +82,6 @@
                     class="img-profile rounded-circle"
                     src="img/undraw_profile.svg" />
                 </a>
-                <!-- Dropdown - User Information -->
                 <div
                   class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                   aria-labelledby="userDropdown">
@@ -118,12 +99,10 @@
               </li>
             </ul>
           </nav>
-          <!-- End of Topbar -->
 
-          <!-- Comienzo del contenido de la página -->
           <div class="container-fluid">
             <div class="row d-flex align-items-stretch">
-              <!-- Formulario para buscar por cédula (a la izquierda) -->
+              <!-- Formulario para buscar por correo -->
               <div class="col-md-6 d-flex">
                 <div class="card shadow mb-4 flex-fill">
                   <div class="card-header py-3">
@@ -132,29 +111,25 @@
                     </h6>
                   </div>
                   <div class="card-body">
-                    <!-- Formulario de búsqueda -->
                     <form id="buscarPacienteForm">
                       <div class="form-group">
-                        <label for="cedulaInput">Cédula del Paciente</label>
+                        <label for="correoInput">Correo del Paciente</label>
                         <input
-                          type="text"
-                          id="cedulaInput"
+                          type="email"
+                          id="correoInput"
                           class="form-control"
-                          placeholder="Ingrese la cédula"
+                          placeholder="Ingrese su correo"
                           required />
                       </div>
-                      <!-- Botón para buscar el campo de búsqueda -->
                       <button type="submit" class="btn btn-primary">
                         Buscar
                       </button>
-                      <!-- Botón para limpiar el campo de búsqueda -->
                       <button
                         type="button"
                         id="clear-search-btn"
                         class="btn btn-danger">
                         Limpiar
                       </button>
-                      <!-- Botón para exportar a PDF -->
                       <button
                         type="button"
                         id="export-pdf-btn"
@@ -165,7 +140,6 @@
                   </div>
                 </div>
               </div>
-              <!-- Fin de la columna del formulario de búsqueda -->
 
               <!-- Columna para los datos del paciente -->
               <div class="col-md-6 d-flex">
@@ -178,6 +152,7 @@
                   <div class="card-body">
                     <p><strong>Nombre:</strong> <span id="nombre"></span></p>
                     <p><strong>Cédula:</strong> <span id="cedula"></span></p>
+                    <p><strong>Correo:</strong> <span id="correo"></span></p>
                     <p>
                       <strong>Dirección:</strong> <span id="direccion"></span>
                     </p>
@@ -188,11 +163,8 @@
                   </div>
                 </div>
               </div>
-              <!-- Fin de la columna de datos del paciente -->
             </div>
-            <!-- /.row -->
 
-            <!-- Historial de Consultas -->
             <div class="row mt-4">
               <div class="col-12">
                 <div class="card shadow">
@@ -210,7 +182,6 @@
                         </tr>
                       </thead>
                       <tbody id="consultas">
-                        <!-- Las filas se agregarán dinámicamente -->
                         <tr>
                           <td colspan="4" class="text-center">
                             Cargando datos...
@@ -222,19 +193,10 @@
                 </div>
               </div>
             </div>
-            <!-- /.row -->
           </div>
-          <!-- /.container-fluid -->
-
-          <!-- End of Main Content -->
-
-          <!-- /.container-fluid -->
         </div>
-        <!-- Fin del contenido principal -->
       </div>
-      <!-- Fin del contenedor de contenido -->
     </div>
-    <!-- Fin del envoltorio de la página -->
 
     <!-- Modal de cierre de sesión -->
     <div
@@ -274,15 +236,16 @@
         </div>
       </div>
     </div>
+
     <!-- JavaScript básico de Bootstrap -->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- JavaScript de plugins principales -->
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- Plugins a nivel de página -->
-    <script src="vendor/chart.js/Chart.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="js/historial.js"></script>
   </body>
