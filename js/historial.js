@@ -9,7 +9,11 @@ document
     const correo = document.getElementById("correoInput").value.trim(); // Usar el campo de correo
 
     if (!correo) {
-      alert("Por favor ingrese su correo.");
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Por favor ingrese su correo.",
+      });
       return;
     }
 
@@ -32,6 +36,12 @@ document
       .then((response) => {
         console.log("Respuesta de la API:", response); // Verificar el objeto de respuesta
         if (!response.ok) {
+          // Aquí es donde se maneja el caso cuando no hay registro
+          Swal.fire({
+            icon: "error",
+            title: "No se encontró el registro",
+            text: "No hay registros disponibles para este correo. Por favor, intente más tarde.",
+          });
           throw new Error("No se encontró el paciente o ocurrió un error.");
         }
         return response.json();
@@ -41,6 +51,11 @@ document
 
         // Verificar si los datos del paciente están completos
         if (!data || !data.nombre || !data.cedula) {
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "No se encontraron datos válidos para este paciente.",
+          });
           throw new Error(
             "No se encontraron datos válidos para este paciente."
           );
@@ -81,7 +96,8 @@ document
       })
       .catch((error) => {
         console.error("Error al buscar paciente:", error); // Ver más detalles del error
-        alert("Ocurrió un error al buscar el paciente. Intente nuevamente.");
+        // No se muestra el alert genérico
+        // El error es controlado por las alertas personalizadas ya definidas
       });
   });
 
@@ -100,7 +116,7 @@ document
 
     // Limpiar el historial de consultas
     const consultasTableBody = document.getElementById("consultas");
-    consultasTableBody.innerHTML = `
+    consultasTableBody.innerHTML = ` 
       <tr>
         <td colspan="4" class="text-center">Cargando datos...</td>
       </tr>
