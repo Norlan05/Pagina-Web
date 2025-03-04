@@ -117,19 +117,14 @@
                       <li class="active">
                         <a href="#">Inicio</a>
                       </li>
-                      <li><a href="#acerca-de-mi">Acerca de Mi</a></li>
                       <li><a href="#servicios">Servicios</a></li>
                       <li><a href="#contacto">Contáctanos</a></li>
+                      <li><a href="#reserva-cita">Reservar Cita</a></li>
+                      <li><a href="login.html">Login</a></li>
                     </ul>
                   </nav>
                 </div>
                 <!--/ End Main Menu -->
-              </div>
-              <div class="col-lg-2 col-12">
-                <div class="get-quote d-flex justify-content-between">
-                  <a href="#reserva-cita" class="btn">Reservar Cita</a>
-                  <a href="login.html" class="btn">Login</a>
-                </div>
               </div>
             </div>
           </div>
@@ -954,8 +949,8 @@
                       name="phone"
                       placeholder="Número de Teléfono"
                       required
-                      pattern="^(\+505\d{8}|\d{8})$"
-                      title="El número debe tener 8 dígitos o incluir el prefijo +505."
+                      pattern="^\+?\d{8,15}$"
+                      title="El número debe tener 8 dígitos o mas"
                       minlength="8"
                       maxlength="12" />
                     <span id="phone-error" class="error-message"></span>
@@ -964,14 +959,13 @@
                 <!-- Campo para la cédula -->
                 <div class="col-lg-6 col-md-6 col-12">
                   <div class="form-group">
-                    <label for="cedula">Cédula:</label>
+                    <label for="cedula">Documento de Identidad:</label>
                     <input
                       type="text"
                       id="cedula"
                       name="cedula"
-                      placeholder="Cédula"
-                      required
-                      pattern="^\d{3}-\d{6}-\d{4}[A-Za-z]$" />
+                      placeholder="Documento"
+                      required />
                   </div>
                 </div>
                 <!-- Campo para la hora -->

@@ -47,14 +47,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!date) errors.push("Por favor, selecciona una fecha.");
     if (!time) errors.push("Por favor, selecciona una hora.");
 
-    // Validación del teléfono
-    const phoneRegex = /^(\+505\d{8}|\d{8})$/;
-    if (!phoneRegex.test(phone)) {
-      errors.push(
-        "El número de teléfono debe ser en formato +50582100905 o 82100905."
-      );
-    }
-
     return errors;
   };
 
