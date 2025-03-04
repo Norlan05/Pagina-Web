@@ -195,7 +195,6 @@ body {
 /* Estilos para el subrayado cuando el enlace está activo */
 .header .nav li.active a:before {
   opacity: 1; /* Hace visible el subrayado */
-  visibility: visible; /* Cambia a visible */
   width: 100%; /* Expande el ancho del subrayado al 100% */
 }
 
