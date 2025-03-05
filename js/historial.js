@@ -112,6 +112,7 @@ document
     document.getElementById("nombre").innerText = "";
     document.getElementById("correo").innerText = "";
     document.getElementById("direccion").innerText = "";
+    document.getElementById("cedula").innerText = "";
     document.getElementById("fechaNacimiento").innerText = "";
 
     // Limpiar el historial de consultas
