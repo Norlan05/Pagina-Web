@@ -13,14 +13,13 @@ document.addEventListener("DOMContentLoaded", () => {
   // Restricción de fecha: solo hoy en adelante
   const today = new Date().toISOString().split("T")[0];
   dateInput.setAttribute("min", today);
-
-  // Generar las opciones de hora
   const generateTimeOptions = () => {
-    const start = 8; // Hora de inicio: 8:00 AM
-    const end = 18; // Hora de fin: 7:00 PM
+    const start = 8;
+    const end = 17;
     timeSelect.innerHTML =
       '<option value="" disabled selected>Selecciona la Hora</option>';
-    for (let hour = start; hour < end; hour++) {
+    for (let hour = start; hour <= end; hour++) {
+      // Cambié < a <=
       let hourFormatted = hour % 12 === 0 ? 12 : hour % 12;
       let period = hour < 12 ? "AM" : "PM";
       timeSelect.appendChild(
