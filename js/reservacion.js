@@ -10,70 +10,103 @@ document.addEventListener("DOMContentLoaded", () => {
   const emailInput = document.getElementById("email");
   const emailErrorDiv = document.getElementById("email-error");
 
-  // Restricción de fecha: solo hoy en adelante
+  // Restricción de fecha mínima (solo hoy en adelante)
   const today = new Date().toISOString().split("T")[0];
   dateInput.setAttribute("min", today);
-  const generateTimeOptions = () => {
-    const start = 8;
-    const end = 17;
+
+  // Opciones de horas disponibles
+  const horasDisponibles = [
+    { value: "08:00", label: "08:00 AM" },
+    { value: "09:00", label: "09:00 AM" },
+    { value: "10:00", label: "10:00 AM" },
+    { value: "11:00", label: "11:00 AM" },
+    { value: "12:00", label: "12:00 PM" },
+    { value: "13:00", label: "01:00 PM" },
+    { value: "14:00", label: "02:00 PM" },
+    { value: "15:00", label: "03:00 PM" },
+    { value: "16:00", label: "04:00 PM" },
+    { value: "17:00", label: "05:00 PM" },
+  ];
+
+  // Generar horas disponibles según la fecha seleccionada
+  function actualizarHoras() {
+    const fechaSeleccionada = dateInput.value || today;
+    const hoy = new Date();
+    const fechaHoy = hoy.toISOString().split("T")[0];
+    const horaActual = hoy.getHours();
+    const minutoActual = hoy.getMinutes();
+
     timeSelect.innerHTML =
-      '<option value="" disabled selected>Selecciona la Hora</option>';
-    for (let hour = start; hour <= end; hour++) {
-      // Cambié < a <=
-      let hourFormatted = hour % 12 === 0 ? 12 : hour % 12;
-      let period = hour < 12 ? "AM" : "PM";
-      timeSelect.appendChild(
-        new Option(
-          `${hourFormatted}:00 ${period}`,
-          `${hourFormatted}:00 ${period}`
-        )
-      );
+      '<option value="">-- Selecciona una hora --</option>';
+
+    horasDisponibles.forEach((hora) => {
+      const [horaStr, minutoStr] = hora.value.split(":");
+      const horaInt = parseInt(horaStr);
+      const minutoInt = parseInt(minutoStr);
+
+      let mostrar = true;
+
+      if (fechaSeleccionada === fechaHoy) {
+        if (
+          horaInt < horaActual ||
+          (horaInt === horaActual && minutoInt <= minutoActual)
+        ) {
+          mostrar = false;
+        }
+      }
+
+      if (mostrar) {
+        const option = new Option(hora.label, hora.label);
+        timeSelect.add(option);
+      }
+    });
+
+    // Refrescar Nice Select si lo estás usando
+    if (typeof $ !== "undefined" && $(timeSelect).niceSelect) {
+      $(timeSelect).niceSelect("update");
     }
-  };
+  }
 
-  generateTimeOptions();
+  // Inicializar horas al cargar
+  actualizarHoras();
 
-  // **Validación del formulario**
+  // Cambiar horas al seleccionar fecha
+  dateInput.addEventListener("change", actualizarHoras);
+
+  // Validación de formulario
   const validateForm = () => {
     let errors = [];
 
-    const date = dateInput.value;
-    const time = timeSelect.value;
-    const phone = phoneInput.value;
-    const email = emailInput.value;
-
-    // Validaciones
-    if (!date) errors.push("Por favor, selecciona una fecha.");
-    if (!time) errors.push("Por favor, selecciona una hora.");
+    if (!dateInput.value) errors.push("Por favor, selecciona una fecha.");
+    if (!timeSelect.value) errors.push("Por favor, selecciona una hora.");
 
     return errors;
   };
 
-  // **Mostrar alerta de errores o éxito**
+  // Alerta con SweetAlert
   const showAlert = (message, type) => {
-    const icon = type === "error" ? "error" : "success";
     Swal.fire({
-      icon: icon,
+      icon: type === "error" ? "error" : "success",
       title: type === "error" ? "Error" : "Éxito",
       text: message,
       confirmButtonText: "Aceptar",
     });
   };
 
-  // **Verificar si ya existe una reserva**
+  // Verificación de reserva existente
   const checkExistingReservation = async (cedula, email, date) => {
     const url = `https://Clinica.somee.com/api/CheckReservation?cedula=${cedula}&email=${email}&fecha=${date}`;
     try {
       const response = await fetch(url);
       const result = await response.json();
-      return result.exists; // true si ya existe una reserva
+      return result.exists;
     } catch (error) {
-      console.error("Error al verificar reserva existente", error);
+      console.error("Error al verificar reserva:", error);
       return false;
     }
   };
 
-  // **Llamada a la API para realizar la reserva**
+  // Enviar datos a la API
   const sendReservation = async (data) => {
     const url = "https://Clinica.somee.com/api/Insert";
     try {
@@ -83,50 +116,34 @@ document.addEventListener("DOMContentLoaded", () => {
         body: JSON.stringify(data),
       });
 
-      // Verificamos si la respuesta es un conflicto (código 409)
       if (response.status === 409) {
-        // Leer la respuesta como texto, no JSON, ya que es un mensaje de error
         const errorMessage = await response.text();
-        showAlert(
-          errorMessage || "Ya existe una reserva para esta fecha y hora.",
-          "error"
-        );
+        showAlert(errorMessage || "Ya existe una reserva.", "error");
         return null;
       }
 
-      // Si hay un error general (no es 200 o 409), lo mostramos
       if (!response.ok) {
-        // Intentamos leer la respuesta como JSON
-        const result = await response.text(); // Usamos text() si no es JSON
-        console.error("Error en la respuesta:", result); // Para depurar la respuesta
-        throw new Error(
-          result || "Error en el envío de datos. Inténtalo más tarde."
-        );
+        const result = await response.text();
+        throw new Error(result || "Error al enviar los datos.");
       }
 
-      // Si la respuesta es exitosa
       const result = await response.json();
       showAlert(result.message || "¡Reserva realizada con éxito!", "success");
       return result;
     } catch (error) {
-      console.error("Error en la llamada a la API:", error);
-      showAlert(
-        error.message || "Error en el envío de datos. Inténtalo más tarde.",
-        "error"
-      );
+      console.error("Error al enviar la reserva:", error);
+      showAlert(error.message, "error");
       return null;
     }
   };
 
-  // **Gestión del envío del formulario**
+  // Envío del formulario
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
 
-    // Limpiar errores
     phoneErrorDiv.textContent = "";
     emailErrorDiv.textContent = "";
 
-    // Validar formulario
     const errors = validateForm();
     if (errors.length > 0) {
       Swal.fire({
@@ -137,13 +154,11 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    // Obtener los datos del formulario
     const date = dateInput.value;
     const time = timeSelect.value;
     const cedulaValue = cedula.value;
     const emailValue = emailInput.value;
 
-    // Verificar si ya existe una reserva con la misma cédula o correo
     const reservationExists = await checkExistingReservation(
       cedulaValue,
       emailValue,
@@ -151,33 +166,27 @@ document.addEventListener("DOMContentLoaded", () => {
     );
     if (reservationExists) {
       showAlert(
-        "Ya tienes una reserva para esta fecha. Solo se permite una reserva por día.",
+        "Ya tienes una reserva para esta fecha. Solo se permite una por día.",
         "error"
       );
       return;
     }
 
-    // Datos de la reserva
     const reservaData = {
       nombre: firstName.value,
       apellido: lastName.value,
-      correo_electronico: emailInput.value,
+      correo_electronico: emailValue,
       numero_telefono: phoneInput.value,
       Cedula: cedulaValue,
       fecha: date,
       hora: time,
     };
 
-    // Llamar a la API para enviar los datos
-    sendReservation(reservaData).then((result) => {
-      if (result) {
-        // Limpiar el formulario
-        form.reset();
-
-        // Limpiar la selección de la hora
-        let timeSelect = document.getElementById("time");
-        timeSelect.value = 0; // Esto restablecerá la selección de hora a la opción vacía
-      }
-    });
+    const result = await sendReservation(reservaData);
+    if (result) {
+      form.reset();
+      timeSelect.selectedIndex = 0;
+      actualizarHoras(); // Actualizar horas después del reset
+    }
   });
 });
