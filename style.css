@@ -42,7 +42,7 @@ body {
 =====================*/
 /* Estilos para la cabecera */
 .header {
-  background-color: #4ff010; /* Fondo rojo para la cabecera */
+  background-color: #ffffff; /* Fondo rojo para la cabecera */
   position: relative; /* Permite posicionar elementos hijos de forma relativa */
 }
 /* Estilos para la navegación colapsada en la cabecera */
@@ -51,8 +51,8 @@ body {
 }
 /* Estilos para la barra superior dentro de la cabecera */
 .header .topbar {
-  background-color: #d8d1d1; /* Fondo blanco */
-  border-bottom: 5px solid #15cce4; /* Línea inferior ligera */
+  background-color: #f4f6fa; /* Fondo blanco */
+  border-bottom: 2px solid #1a76d1; /* Línea inferior ligera */
   padding: 15px 0; /* Espaciado vertical */
 }
 
@@ -956,7 +956,13 @@ body {
 /*===================
 	Why choose CSS
 =====================*/
-/* Estilos para el título de la sección "Por qué elegirnos" */
+
+/* Estilos generales para la sección "Por qué elegirnos" */
+.why-choose {
+  background: #fff; /* Color de fondo blanco */
+}
+
+/* Estilos para el título de la sección */
 .why-choose .choose-left h3 {
   font-size: 24px; /* Tamaño de la fuente */
   font-weight: 600; /* Grosor de la fuente */
@@ -977,108 +983,95 @@ body {
   background: #1a76d1; /* Color de la línea */
 }
 
-/* Estilos para el párrafo debajo del título */
+/* Estilos para los párrafos */
 .why-choose .choose-left p {
   margin-bottom: 35px; /* Margen inferior */
 }
 
-/* Estilos para los elementos de la lista */
+/* Estilos para la lista */
 .why-choose .choose-left .list li {
   color: #868686; /* Color del texto */
-  margin-bottom: 12px; /* Margen inferior para los elementos de la lista */
+  margin-bottom: 12px; /* Margen inferior */
 }
 
 /* Elimina el margen inferior del último elemento de la lista */
 .why-choose .choose-left .list li:last-child {
-  margin-bottom: 0; /* Sin margen inferior */
+  margin-bottom: 0;
 }
 
-/* Estilos para los íconos en la lista */
+/* Estilos para los íconos de la lista */
 .why-choose .choose-left .list li i {
-  height: 15px; /* Altura del ícono */
-  width: 15px; /* Ancho del ícono */
-  line-height: 15px; /* Centrado vertical del ícono */
-  text-align: center; /* Centrado horizontal del ícono */
-  background: #1a76d1; /* Fondo del ícono */
-  color: #fff; /* Color del texto del ícono */
-  font-size: 14px; /* Tamaño de la fuente del ícono */
-  border-radius: 100%; /* Hace el ícono redondo */
-  padding-left: 2px; /* Espaciado a la izquierda */
-  margin-right: 16px; /* Margen a la derecha */
+  height: 15px;
+  width: 15px;
+  line-height: 15px;
+  text-align: center;
+  background: #1a76d1;
+  color: #fff;
+  font-size: 14px;
+  border-radius: 100%;
+  padding-left: 2px;
+  margin-right: 16px;
 }
 
-/* Start Faq CSS */
-/* Estilos generales para la sección "Por qué elegirnos" */
-.why-choose {
-  background: #fff; /* Color de fondo blanco */
-}
-
-/* Estilos para la parte derecha de la sección */
+/* Estilos para la parte derecha (imagen) */
 .why-choose .choose-right {
-  height: 100%; /* Altura completa del contenedor */
-  width: 100%; /* Ancho completo del contenedor */
-  background-image: url("img/video-bg.jpg"); /* Imagen de fondo */
-  background-size: cover; /* Cobrir todo el contenedor */
-  background-position: center; /* Centrar la imagen */
-  background-repeat: no-repeat; /* Sin repetición de la imagen */
-  position: relative; /* Posición relativa para posicionar elementos absolutos */
+  width: 60%; /* que ocupe bien la columna */
+  padding: 10px;
+  text-align: center;
 }
 
-/* Estilos para el botón de video */
-.why-choose .choose-right .video {
-  color: #fff; /* Color del texto en el botón */
-  height: 70px; /* Altura del botón */
-  width: 70px; /* Ancho del botón */
-  line-height: 70px; /* Centrar el texto verticalmente */
-  text-align: center; /* Centrar el texto horizontalmente */
-  border-radius: 100%; /* Hacer el botón redondo */
-  position: absolute; /* Posición absoluta para centrar el botón */
-  left: 50%; /* Alinear al centro horizontalmente */
-  top: 50%; /* Alinear al centro verticalmente */
-  margin-left: -35px; /* Ajustar para centrar */
-  margin-top: -35px; /* Ajustar para centrar */
-  font-size: 21px; /* Tamaño de la fuente */
-  background: #1a76d1; /* Color de fondo del botón */
-  padding-left: 4px; /* Espaciado a la izquierda */
+/* Estilos para la imagen */
+.why-choose .choose-right .image-box img {
+  width: 100%;
+  max-width: 400px; /* controla el tamaño máximo */
+  height: auto;
+  border-radius: 80px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); /* sombra ligera */
+}
+/* Responsive */
+/* Responsive para tablets grandes (Surface, Zenbook, iPad Air) */
+@media (max-width: 1024px) {
+  .why-choose .choose-right .image-box img {
+    max-width: 300px;
+    border-radius: 50px;
+  }
 }
 
-/* Efecto de escalado en el hover del botón de video */
-.why-choose .choose-right .video:hover {
-  transform: scale(1.1); /* Escalar el botón al pasar el ratón */
+/* Responsive para tablets pequeñas (iPad Mini, 768px) */
+@media (max-width: 768px) {
+  .why-choose .choose-right {
+    width: 100%; /* ocupa toda la fila */
+  }
+  .why-choose .choose-right .image-box img {
+    max-width: 220px;
+    border-radius: 20px;
+  }
 }
-
-/* Estilos para el bloque de ondas en el fondo del video */
-.why-choose .video-image .waves-block .waves {
-  position: absolute; /* Posición absoluta */
-  width: 200px; /* Ancho del círculo de ondas */
-  height: 200px; /* Altura del círculo de ondas */
-  background: #fff; /* Color de fondo blanco */
-  opacity: 0; /* Invisible inicialmente */
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)"; /* Compatibilidad con IE */
-  border-radius: 100%; /* Hacerlo redondo */
-  -webkit-animation: waves 3s ease-in-out infinite; /* Animación para las ondas */
-  animation: waves 3s ease-in-out infinite; /* Animación para las ondas */
-  left: 50%; /* Centrar horizontalmente */
-  margin-left: -100px; /* Ajustar para centrar */
-  top: 50%; /* Centrar verticalmente */
-  margin-top: -100px; /* Ajustar para centrar */
+@media (max-width: 920px) {
+  .why-choose .choose-right {
+    width: 100%; /* ocupa toda la fila */
+  }
+  .why-choose .choose-right .image-box img {
+    max-width: 220px;
+    border-radius: 20px;
+  }
 }
-s
-
-/* Diferentes demoras para las ondas */
-.why-choose .video-image .waves-block .wave-1 {
-  -webkit-animation-delay: 0s; /* Sin demora para la primera onda */
-  animation-delay: 0s; /* Sin demora para la primera onda */
+@media (max-width: 1020px) {
+  .why-choose .choose-right {
+    width: 100%; /* ocupa toda la fila */
+  }
+  .why-choose .choose-right .image-box img {
+    max-width: 220px;
+    border-radius: 20px;
+  }
 }
-.why-choose .video-image .waves-block .wave-2 {
-  -webkit-animation-delay: 1s; /* Demora de 1 segundo para la segunda onda */
-  animation-delay: 1s; /* Demora de 1 segundo para la segunda onda */
+/* Responsive para móviles */
+@media (max-width: 480px) {
+  .why-choose .choose-right .image-box img {
+    max-width: 200px;
+    border-radius: 30px;
+  }
 }
-.why-choose .video-image .waves-block .wave-3 {
-  -webkit-animation-delay: 2s; /* Demora de 2 segundos para la tercera onda */
-  animation-delay: 2s; /* Demora de 2 segundos para la tercera onda */
-}
-
 /*=======================
 	End Why choose CSS
 =========================*/
@@ -1135,8 +1128,10 @@ s
 
 /* Estilos para las imágenes del portafolio */
 .portfolio .single-pf img {
-  height: 100%; /* Altura completa */
-  width: 100%; /* Ancho completo */
+  height: 300px;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 5px; /* opcional */
 }
 
 /* Estilos para el pseudo-elemento antes de cada elemento del portafolio */

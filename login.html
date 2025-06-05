@@ -22,6 +22,14 @@
   </head>
 
   <body class="login-page bg-gradient-primary">
+    <!-- Control de acceso: si ya está logueado, mandar a 404 -->
+    <script>
+      if (sessionStorage.getItem("isLoggedIn") === "true") {
+        // Si ya está logueado, redirigir a 404
+        window.location.href = "404.html";
+      }
+    </script>
+
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-xl-10 col-lg-12 col-md-9">

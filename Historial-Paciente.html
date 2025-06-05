@@ -25,6 +25,13 @@
   </head>
 
   <body id="page-top">
+    <!-- Control de acceso: verificar si está logueado -->
+    <script>
+      if (sessionStorage.getItem("isLoggedIn") !== "true") {
+        // Si no está logueado, redirigir a login
+        window.location.href = "404.html";
+      }
+    </script>
     <div id="wrapper">
       <ul
         class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
@@ -231,7 +238,9 @@
               data-dismiss="modal">
               Cancelar
             </button>
-            <a class="btn btn-primary" href="login.html">Cerrar sesión</a>
+            <a class="btn btn-primary" href="#" onclick="cerrarSesion()"
+              >Cerrar sesión</a
+            >
           </div>
         </div>
       </div>
@@ -248,5 +257,14 @@
     <!-- Plugins a nivel de página -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="js/historial.js"></script>
+    <!-- Script para logout real -->
+    <script>
+      function cerrarSesion() {
+        // Eliminar la sesión
+        sessionStorage.clear();
+        // Redirigir a login
+        window.location.href = "login.html";
+      }
+    </script>
   </body>
 </html>

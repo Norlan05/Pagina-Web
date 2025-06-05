@@ -39,6 +39,8 @@ document.addEventListener("DOMContentLoaded", function () {
           // Guardar el correo en sessionStorage
           const correoUsuario = data.correo;
           sessionStorage.setItem("correoUsuario", correoUsuario); // Guardamos el correo en sessionStorage
+          // 🚀 Aquí agregamos la línea para indicar que está logueado
+          sessionStorage.setItem("isLoggedIn", "true"); // Indicamos que la sesión está activa
 
           // Mostrar el correo en la consola para verificar
           console.log("Correo del usuario: ", correoUsuario);

@@ -25,6 +25,14 @@
   </head>
 
   <body id="page-top">
+    <!-- Control de acceso: verificar si está logueado -->
+    <script>
+      if (sessionStorage.getItem("isLoggedIn") !== "true") {
+        // No está logueado → mostrar error 404
+        window.location.href = "404.html";
+      }
+    </script>
+
     <div id="wrapper">
       <ul
         class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
@@ -264,7 +272,9 @@
               data-dismiss="modal">
               Cancelar
             </button>
-            <a class="btn btn-primary" href="login.html">Cerrar sesión</a>
+            <a class="btn btn-primary" href="#" onclick="cerrarSesion()"
+              >Cerrar sesión</a
+            >
           </div>
         </div>
       </div>
@@ -283,5 +293,11 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script src="js/citas.js"></script>
+    <script>
+      function cerrarSesion() {
+        sessionStorage.clear();
+        window.location.href = "login.html";
+      }
+    </script>
   </body>
 </html>
