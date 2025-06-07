@@ -1072,6 +1072,26 @@ body {
     border-radius: 30px;
   }
 }
+/* Ajuste para que el scroll de #nosotros no se oculte detrás del header */
+#nosotros {
+  scroll-margin-top: 130px; /* Puedes ajustar a 100px, 110px, 130px según prefieras */
+}
+
+#contacto {
+  scroll-margin-top: 170px; /* Igual que el anterior, así mantiene consistencia visual */
+}
+/* Sección Servicios */
+#servicios {
+  scroll-margin-top: 100px;
+}
+/* Sección Preguntas Frecuentes */
+#preguntas {
+  scroll-margin-top: 120px;
+}
+/* Sección Reserva de Cita */
+#reserva-cita {
+  scroll-margin-top: 100px;
+}
 /*=======================
 	End Why choose CSS
 =========================*/
