@@ -28,10 +28,10 @@
     <!-- Control de acceso: verificar si está logueado -->
     <script>
       if (sessionStorage.getItem("isLoggedIn") !== "true") {
-        // Si no está logueado, redirigir a login
         window.location.href = "404.html";
       }
     </script>
+
     <div id="wrapper">
       <ul
         class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
@@ -108,9 +108,10 @@
           </nav>
 
           <div class="container-fluid">
+            <!-- FILA: Buscar paciente + Datos del paciente -->
             <div class="row d-flex align-items-stretch">
-              <!-- Formulario para buscar por correo -->
-              <div class="col-md-6 d-flex">
+              <!-- Buscar Paciente -->
+              <div class="col-12 col-md-6 d-flex">
                 <div class="card shadow mb-4 flex-fill">
                   <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary">
@@ -148,8 +149,8 @@
                 </div>
               </div>
 
-              <!-- Columna para los datos del paciente -->
-              <div class="col-md-6 d-flex">
+              <!-- Datos del Paciente -->
+              <div class="col-12 col-md-6 d-flex">
                 <div class="card shadow mb-4 flex-fill">
                   <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary">
@@ -172,6 +173,7 @@
               </div>
             </div>
 
+            <!-- FILA: Historial de Consultas -->
             <div class="row mt-4">
               <div class="col-12">
                 <div class="card shadow">
@@ -179,31 +181,39 @@
                     Historial de Consultas
                   </div>
                   <div class="card-body">
-                    <table class="table table-striped table-bordered">
-                      <thead class="thead-dark">
-                        <tr>
-                          <th>Motivo de Consulta</th>
-                          <th>Diagnóstico</th>
-                          <th>Tratamiento</th>
-                          <th>Fecha de Consulta</th>
-                        </tr>
-                      </thead>
-                      <tbody id="consultas">
-                        <tr>
-                          <td colspan="4" class="text-center">
-                            Cargando datos...
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
+                    <!-- SOLUCIÓN: Div .table-responsive -->
+                    <div class="table-responsive">
+                      <table class="table table-striped table-bordered">
+                        <thead class="thead-dark">
+                          <tr>
+                            <th>Motivo de Consulta</th>
+                            <th>Diagnóstico</th>
+                            <th>Tratamiento</th>
+                            <th>Fecha de Consulta</th>
+                          </tr>
+                        </thead>
+                        <tbody id="consultas">
+                          <tr>
+                            <td colspan="4" class="text-center">
+                              Cargando datos...
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <!-- FIN: table-responsive -->
                   </div>
                 </div>
               </div>
             </div>
           </div>
+          <!-- FIN container-fluid -->
         </div>
+        <!-- FIN content -->
       </div>
+      <!-- FIN content-wrapper -->
     </div>
+    <!-- FIN wrapper -->
 
     <!-- Modal de cierre de sesión -->
     <div
@@ -256,13 +266,13 @@
 
     <!-- Plugins a nivel de página -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="js/sb-admin-2.min.js"></script>
     <script src="js/historial.js"></script>
+
     <!-- Script para logout real -->
     <script>
       function cerrarSesion() {
-        // Eliminar la sesión
         sessionStorage.clear();
-        // Redirigir a login
         window.location.href = "login.html";
       }
     </script>
