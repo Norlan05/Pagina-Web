@@ -10,6 +10,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const emailInput = document.getElementById("email");
   const emailErrorDiv = document.getElementById("email-error");
 
+  // Validar formato de cédula en tiempo real
+  cedula.addEventListener("input", () => {
+    cedula.value = cedula.value.replace(/[^0-9A-Z]/gi, "").toUpperCase();
+  });
+
   // Restricción de fecha mínima (solo hoy en adelante)
   const today = new Date().toISOString().split("T")[0];
   dateInput.setAttribute("min", today);
@@ -93,16 +98,16 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   };
 
-  // Verificación de reserva existente
-  const checkExistingReservation = async (cedula, email, date) => {
-    const url = `https://Clinica.somee.com/api/CheckReservation?cedula=${cedula}&email=${email}&fecha=${date}`;
+  // Verificación de reserva existente completa
+  const checkExistingReservation = async (cedula, email, date, hora) => {
+    const url = `https://Clinica.somee.com/api/CheckReservation?cedula=${cedula}&email=${email}&date=${date}&hora=${hora}`;
     try {
       const response = await fetch(url);
       const result = await response.json();
-      return result.exists;
+      return result; // { exists: true, reason: "cliente_ya_tiene_reserva" | "hora_ocupada" }
     } catch (error) {
       console.error("Error al verificar reserva:", error);
-      return false;
+      return { exists: false };
     }
   };
 
@@ -156,19 +161,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const date = dateInput.value;
     const time = timeSelect.value;
-    const cedulaValue = cedula.value;
-    const emailValue = emailInput.value;
+    const cedulaValue = cedula.value.trim().toUpperCase();
+    const emailValue = emailInput.value.trim().toLowerCase();
 
-    const reservationExists = await checkExistingReservation(
+    // Validar existencia de reserva
+    const resultCheck = await checkExistingReservation(
       cedulaValue,
       emailValue,
-      date
+      date,
+      time
     );
-    if (reservationExists) {
-      showAlert(
-        "Ya tienes una reserva para esta fecha. Solo se permite una por día.",
-        "error"
-      );
+
+    if (resultCheck.exists) {
+      if (resultCheck.reason === "cliente_ya_tiene_reserva") {
+        showAlert(
+          "Ya tienes una reserva para esta fecha. Solo se permite una por día.",
+          "error"
+        );
+      } else if (resultCheck.reason === "hora_ocupada") {
+        showAlert(
+          "La hora seleccionada ya está ocupada. Elige otra hora.",
+          "error"
+        );
+      } else {
+        showAlert("Ya existe una reserva conflictiva.", "error");
+      }
       return;
     }
 
@@ -186,7 +203,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (result) {
       form.reset();
       timeSelect.selectedIndex = 0;
-      actualizarHoras(); // Actualizar horas después del reset
+      actualizarHoras();
     }
   });
 });
