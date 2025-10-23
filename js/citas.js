@@ -98,15 +98,41 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   };
 
-  // Verificación de reserva existente completa
+  // ✅ Verificación de reserva existente (con logs mejorados)
   const checkExistingReservation = async (cedula, email, date, hora) => {
     const url = `https://Clinica.somee.com/api/CheckReservation?cedula=${cedula}&email=${email}&date=${date}&hora=${hora}`;
     try {
       const response = await fetch(url);
-      const result = await response.json();
-      return result; // { exists: true, reason: "cliente_ya_tiene_reserva" | "hora_ocupada" }
+      console.log("📡 Verificando reserva en:", url);
+      console.log("🟢 Estado HTTP:", response.status);
+      console.log("📦 Headers:", [...response.headers.entries()]);
+
+      if (!response.ok) {
+        console.error("❌ Error HTTP al verificar reserva:", response.status);
+        return { exists: false };
+      }
+
+      let result = {};
+      try {
+        const text = await response.text();
+        console.log("📄 Respuesta bruta del servidor:", text);
+
+        if (text && text.trim().startsWith("{")) {
+          result = JSON.parse(text);
+        } else {
+          console.warn(
+            "⚠️ La respuesta no contenía JSON válido o estaba vacía:",
+            text
+          );
+        }
+      } catch (e) {
+        console.error("💥 Error al intentar parsear JSON:", e);
+      }
+
+      console.log("✅ Resultado final de verificación:", result);
+      return result;
     } catch (error) {
-      console.error("Error al verificar reserva:", error);
+      console.error("💥 Error al verificar reserva:", error);
       return { exists: false };
     }
   };
@@ -146,6 +172,12 @@ document.addEventListener("DOMContentLoaded", () => {
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
 
+    // 🔒 Bloquear el botón al hacer clic
+    const boton = form.querySelector('button[type="submit"]');
+    boton.disabled = true;
+    boton.innerText = "Procesando...";
+    console.log("✅ Botón bloqueado:", boton.disabled);
+
     phoneErrorDiv.textContent = "";
     emailErrorDiv.textContent = "";
 
@@ -156,6 +188,9 @@ document.addEventListener("DOMContentLoaded", () => {
         title: "Errores en el formulario",
         text: errors.join("\n"),
       });
+      // 🔓 Volver a habilitar el botón si hay errores
+      boton.disabled = false;
+      boton.innerText = "Reservar Cita";
       return;
     }
 
@@ -186,6 +221,9 @@ document.addEventListener("DOMContentLoaded", () => {
       } else {
         showAlert("Ya existe una reserva conflictiva.", "error");
       }
+      // 🔓 Volver a habilitar el botón
+      boton.disabled = false;
+      boton.innerText = "Reservar Cita";
       return;
     }
 
@@ -205,5 +243,10 @@ document.addEventListener("DOMContentLoaded", () => {
       timeSelect.selectedIndex = 0;
       actualizarHoras();
     }
+
+    // 🔓 Habilitar nuevamente el botón después del proceso
+    boton.disabled = false;
+    boton.innerText = "Reservar Cita";
+    console.log("🔓 Botón desbloqueado:", boton.disabled);
   });
 });
